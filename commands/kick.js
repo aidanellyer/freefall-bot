@@ -1,6 +1,6 @@
 const config = require("../config.json")
 exports.run = (client, message, [mention, ...reason]) => {
-    let moderation = config.moderation;
+  let moderation = config.moderation;
   const modRole = message.guild.roles.find("name", `${moderation}`);
   if (!modRole)
     return console.log("The Mods role does not exist");
@@ -37,9 +37,9 @@ exports.run = (client, message, [mention, ...reason]) => {
           **User was kicked for:** ${reasonMsg}
           **User was kicked on:** ${date}`
       }
-    
 
-      }
+
+    }
     )
 
 

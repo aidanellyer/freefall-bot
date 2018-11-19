@@ -6,6 +6,6 @@ exports.run = (client, message, args) => {
         "Callum"
     ];
 
-message.reply(joke[Math.floor(Math.random() * joke.length)]);
+    message.reply(joke[Math.floor(Math.random() * joke.length)]);
 
 }

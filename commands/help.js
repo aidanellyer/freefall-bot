@@ -1,7 +1,7 @@
 const config = require("../config.json")
 exports.run = (client, message, args) => {
     var prefix = config.prefix;
-message.channel.send("A list of commands has been sent to you!")
+    message.channel.send("A list of commands has been sent to you!")
     message.author.send({
         embed: {
             color: 3447003,

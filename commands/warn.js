@@ -19,9 +19,9 @@ exports.run = (client, message, [mention, ...reason]) => {
 
     let warner = message.author.tag;
 
-        warnMember.send(`You've been warned for ${reasonMsg} by ${warner}`).then(member => {
+    warnMember.send(`You've been warned for ${reasonMsg} by ${warner}`).then(member => {
         let date = new Date();
-      
+
         message.reply({
             embed: {
                 color: 13632027,
