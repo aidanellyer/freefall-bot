@@ -19,11 +19,14 @@ message.channel.send("A list of commands has been sent to you!")
             },
             {
                 name: "Fun Commands",
-                value: `${prefix}roll (number) - This will generate a random number between 1-your number i.e !roll 10 - will give you a number between 1 and 10`
+                value: `${prefix}roll (number) - This will generate a random number between 1-your number i.e !roll 10 - will give you a number between 1 and 10
+                        ${prefix}joke - Grab a joke! Because we all know you're talentless!`
             },
             {
                 name: "Administrative Commands",
-                value: `${prefix}kick - This will remove a member, make sure and add a reason!
+                value: `${prefix}poll - Creates a vote.
+                ${prefix}ban - This bans a member.
+                ${prefix}kick - This will remove a member, make sure and add a reason!
                     ${prefix}warn - This will send a message to a user warning them!`
 
             }]
