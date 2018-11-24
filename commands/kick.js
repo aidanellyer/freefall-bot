@@ -6,6 +6,7 @@ exports.run = (client, message, [mention, ...reason]) => {
   let reasonMsg = reason.join(" ");
   let kicker = message.author.tag;
   let date = new Date();
+  let channel = client.channels.get(config.logs);
 
   if (!modRole)
     return console.log(`The ${moderation} role does not exist`);
@@ -22,7 +23,7 @@ exports.run = (client, message, [mention, ...reason]) => {
 
   kickMember.kick(reasonMsg).then(member => {
 
-    let channel = client.channels.get('THECHANNELID');
+
     if (channel) {
       channel.send({
         embed: {
