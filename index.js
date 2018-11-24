@@ -9,6 +9,7 @@ client.on('warn', e => console.warn(e));
 process.on('unhandledRejection', console.error);
 process.on('uncaughtException', console.error);
 
+//Anti Racism Start
 
 client.on('message', message => {
     const swearWords = ['nigger', 'nigga', 'niggar', 'niggor', 'niggr'];
@@ -17,6 +18,8 @@ client.on('message', message => {
         message.reply('You said a banned word! :punch: :punch: :punch: :cry: ').then(msg => msg.delete(3000)).catch(err => console.error(err));
     }
 });
+
+//Anti Racism Finish
 
 // Status set
 client.on('ready', () => {
@@ -33,6 +36,9 @@ client.on('ready', () => {
         client.user.setStatus('online');
     }, 30 * 1000);
 });
+//Status End
+
+
 // This loop reads the /events/ folder and attaches each event file to the appropriate event.
 fs.readdir('./events/', (err, files) => {
     if (err) return console.error(err);
