@@ -16,6 +16,9 @@ exports.run = (client, message, [mention, ...reason]) => {
     if (message.mentions.members.size === 0)
         return message.reply("Please mention a user to warn");
 
+        if (reasonMsg.length === 0)
+        return message.reply("Enter a reason");
+
     if (!message.guild.me.hasPermission("MANAGE_MESSAGES"))
         return message.reply("");
 
@@ -28,7 +31,7 @@ exports.run = (client, message, [mention, ...reason]) => {
         if (channel) {
             channel.send({
                 embed: {
-                    color: 13632027,
+                    color: 13273357,
                     author: {
                         icon_url: client.user.avatarURL
 

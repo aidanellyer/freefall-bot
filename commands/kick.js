@@ -1,7 +1,6 @@
 exports.run = (client, message, [mention, ...reason]) => {
   const config = require("../config.json")
-  let moderation = config.moderation;
-  const modRole = message.guild.roles.find("name", `${moderation}`);
+  const modRole = message.guild.roles.find("name", `${config.moderation}`);
   const kickMember = message.mentions.members.first();
   let reasonMsg = reason.join(" ");
   let kicker = message.author.tag;
@@ -9,13 +8,16 @@ exports.run = (client, message, [mention, ...reason]) => {
   let channel = client.channels.get(config.logs);
 
   if (!modRole)
-    return console.log(`The ${moderation} role does not exist`);
+    return console.log(`The ${config.moderation} role does not exist`);
 
   if (!message.member.roles.has(modRole.id))
     return message.reply("You can't use this command.");
 
   if (message.mentions.members.size === 0)
     return message.reply("Please mention a user to kick");
+    
+    if (reasonMsg.length === 0)
+    return message.reply("Enter a reason");
 
   if (!message.guild.me.hasPermission("KICK_MEMBERS"))
     return message.reply("");

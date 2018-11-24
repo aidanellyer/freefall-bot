@@ -17,6 +17,9 @@ exports.run = (client, message, [mention, ...reason]) => {
   if (message.mentions.members.size === 0)
     return message.reply("Please mention a user to ban");
 
+    if (reasonMsg.length === 0)
+    return message.reply("Enter a reason");
+
   if (!message.guild.me.hasPermission("BAN_MEMBERS"))
     return message.reply("");
 
