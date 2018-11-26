@@ -5,7 +5,6 @@ exports.run = (client, message, [mention, ...reason]) => {
   let banMember = message.mentions.members.first();
   let reasonMsg = reason.join(" ");
   let banner = message.author.tag;
-  let date = new Date();
   let channel = client.channels.get(config.logs);
 
   if (!modRole)
@@ -45,7 +44,7 @@ exports.run = (client, message, [mention, ...reason]) => {
               **User Banned:** ${banMember}
               **Banned by:** ${banner}
               **User was banned for:** ${reasonMsg}
-              **User was banned on:** ${date}`
+              **User was banned on:** $new Date()`
         }
       })
 

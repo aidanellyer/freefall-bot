@@ -8,11 +8,11 @@ const clean = text => {
         return text;
   }
 
-exports.run = (client, message, args) => {
+exports.run = async (client, message, args) => {
     if (message.author.id !== config.ownerID) return;
     try {
         const code = args.join(' ');
-        let evaled = eval(code);
+        let evaled = await eval(code);
         evaled = inspect(evaled, null, 0)
 
         message.channel.send(clean(evaled), {code: 'xl'});
