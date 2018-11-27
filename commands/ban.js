@@ -1,14 +1,13 @@
 const config = require("../config.json")
 exports.run = (client, message, [mention, ...reason]) => {
-  let moderation = config.moderation;
   const modRole = message.guild.roles.find("name", `${moderation}`);
   let banMember = message.mentions.members.first();
   let reasonMsg = reason.join(" ");
   let banner = message.author.tag;
   let channel = client.channels.get(config.logs);
-
+  let date = new Date()
   if (!modRole)
-    return console.log(`The ${moderation} role does not exist`);
+  return console.log(`The ${config.moderation} role does not exist`);
 
   if (!message.member.roles.has(modRole.id))
     return message.reply("You can't use this command.");
@@ -22,9 +21,7 @@ exports.run = (client, message, [mention, ...reason]) => {
   if (!message.guild.me.hasPermission("BAN_MEMBERS"))
     return message.reply("");
 
-
-
-  message.member.send(`You were banned by **${banner}** for the reason: **${reasonMsg}**`)
+message.member.send(`You were banned on ${date} by ${banner} for the reason: ${reasonMsg}**`)
 
   banMember.ban(reasonMsg).then(member => {
 
