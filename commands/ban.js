@@ -6,6 +6,7 @@ exports.run = (client, message, [mention, ...reason]) => {
   let banner = message.author.tag;
   let channel = client.channels.get(config.logs);
   let date = new Date()
+  
   if (!modRole)
   return console.log(`The ${config.moderation} role does not exist`);
 

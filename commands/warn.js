@@ -24,7 +24,7 @@ exports.run = (client, message, [mention, ...reason]) => {
 
 
 
-    warnMember.send(`You've been warned for ${reasonMsg} by ${warner}`).then(member => {
+    warnMember.send(`You were banned on ${date} by ${banner} for the reason: ${reasonMsg}**`).then(member => {
 
 
 

@@ -15,8 +15,8 @@ exports.run = (client, message, [mention, ...reason]) => {
 
   if (message.mentions.members.size === 0)
     return message.reply("Please mention a user to kick");
-    
-    if (reasonMsg.length === 0)
+
+  if (reasonMsg.length === 0)
     return message.reply("Enter a reason");
 
   if (!message.guild.me.hasPermission("KICK_MEMBERS"))
@@ -24,28 +24,30 @@ exports.run = (client, message, [mention, ...reason]) => {
 
 
   kickMember.kick(reasonMsg).then(member => {
+    kickMember.send(`You were banned on ${date} by ${banner} for the reason: ${reasonMsg}**`).then(member => {
 
 
-    if (channel) {
-      channel.send({
-        embed: {
-          color: 13632027,
-          author: {
-            icon_url: client.user.avatarURL
+      if (channel) {
+        channel.send({
+          embed: {
+            color: 13632027,
+            author: {
+              icon_url: client.user.avatarURL
 
-          },
+            },
 
-          title: "A user has been kicked!",
-          description: `A user was kicked recently! Here is all the information you need
+            title: "A user has been kicked!",
+            description: `A user was kicked recently! Here is all the information you need
             
             **User Kicked:** ${kickMember}
             **Kicked by:** ${kicker}
             **User was kicked for:** ${reasonMsg}
             **User was kicked on:** ${date}`
+          }
         }
-      }
 
-      )
-    }
+        )
+      }
+    })
   })
 }
