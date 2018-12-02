@@ -1,26 +1,26 @@
-exports.run = (client, message, [mention, ...reason]) => {
+exports.run = (client, msg, [mention, ...reason]) => {
     const config = require("../config.json")
-    const modRole = message.guild.roles.find("name", `${config.moderation}`);
+    const modRole = msg.guild.roles.find("name", `${config.moderation}`);
     let channel = client.channels.get(config.logs);
     let date = new Date();
-    let warnMember = message.mentions.members.first();
+    let warnMember = msg.mentions.members.first();
     let reasonMsg = reason.join(" ");
-    let warner = message.author.tag;
+    let warner = msg.author.tag;
 
     if (!modRole)
         return console.log(`The ${config.moderation} role does not exist`);
 
-    if (!message.member.roles.has(modRole.id))
-        return message.reply("You can't use this command.");
+    if (!msg.member.roles.has(modRole.id))
+        return msg.reply("You can't use this command.");
 
-    if (message.mentions.members.size === 0)
-        return message.reply("Please mention a user to warn");
+    if (msg.mentions.members.size === 0)
+        return msg.reply("Please mention a user to warn");
 
         if (reasonMsg.length === 0)
-        return message.reply("Enter a reason");
+        return msg.reply("Enter a reason");
 
-    if (!message.guild.me.hasPermission("MANAGE_MESSAGES"))
-        return message.reply("");
+    if (!msg.guild.me.hasPermission("MANAGE_msgS"))
+        return msg.reply("");
 
 
 

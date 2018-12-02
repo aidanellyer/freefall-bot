@@ -8,15 +8,15 @@ const clean = text => {
         return text;
   }
 
-exports.run = async (client, message, args) => {
-    if (message.author.id !== config.ownerID) return;
+exports.run = async (client, msg, args) => {
+    if (msg.author.id !== config.ownerID) return;
     try {
         const code = args.join(' ');
         let evaled = await eval(code);
         evaled = inspect(evaled, null, 0)
 
-        message.channel.send(clean(evaled), {code: 'xl'});
+        msg.channel.send(clean(evaled), {code: 'xl'});
     } catch (err) {
-        message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+        msg.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
     }
 };

@@ -1,4 +1,4 @@
-exports.run = (client, message, args) => {
+exports.run = (client, msg, args) => {
 
     const joke = [
         "Did you hear the one about the little mountain?\nIt's hill-arious! ",
@@ -9,6 +9,6 @@ exports.run = (client, message, args) => {
         "How many mexicans does it take to build a roof?\n Just Juan"
     ];
 
-    message.channel.send(joke[Math.floor(Math.random() * joke.length)]);
+    msg.channel.send(joke[Math.floor(Math.random() * joke.length)]);
 
 }

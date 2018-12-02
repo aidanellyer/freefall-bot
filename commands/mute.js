@@ -1,35 +1,35 @@
 const config = require("../config.json")
-exports.run = (client, message, [mention, ...reason]) => {
-    let userToModify = message.mentions.members.first();
-    const role = message.guild.roles.find('name', 'muted');
-    const modRole = message.guild.roles.find("name", `${config.moderation}`);
-    let muter = message.author.tag;
+exports.run = (client, msg, [mention, ...reason]) => {
+    let userToModify = msg.mentions.members.first();
+    const role = msg.guild.roles.find('name', 'muted');
+    const modRole = msg.guild.roles.find("name", `${config.moderation}`);
+    let muter = msg.author.tag;
     let date = new Date();
     let channel = client.channels.get(config.logs);
 
     if (!modRole)
         return console.log(`The ${config.moderation} role does not exist`);
 
-    if (!message.member.roles.has(modRole.id))
-        return message.reply("You can't use this command.");
+    if (!msg.member.roles.has(modRole.id))
+        return msg.reply("You can't use this command.");
 
-    if (message.mentions.members.size === 0)
-        return message.reply("Please mention a user to mute");
+    if (msg.mentions.members.size === 0)
+        return msg.reply("Please mention a user to mute");
 
         if (reason.length === 0)
-        return message.reply("Enter a reason");
+        return msg.reply("Enter a reason");
 
-    if (!message.guild.me.hasPermission("MANAGE_ROLES"))
-        return message.reply("");
+    if (!msg.guild.me.hasPermission("MANAGE_ROLES"))
+        return msg.reply("");
 
 
 
 
     userToModify.addRole(role);
 
-    message.reply("User has been muted!").then(msg => msg.delete(3000)).catch(err => console.error(err));
+    msg.reply("User has been muted!").then(msg => msg.delete(3000)).catch(err => console.error(err));
 
-    message.member.send(`You were banned on ${date} by ${banner} for the reason: ${reason}**`)
+    msg.member.send(`You were banned on ${date} by ${banner} for the reason: ${reason}**`)
 
     if (channel) {
         channel.send({

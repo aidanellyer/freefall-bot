@@ -1,28 +1,28 @@
 const config = require("../config.json")
     let moderation = config.moderation;
-    const modRole = message.guild.roles.find("name", `${moderation}`);
-    let Slapper = message.guild.roles.find("name", "Slapper");
+    const modRole = msg.guild.roles.find("name", `${moderation}`);
+    let Slapper = msg.guild.roles.find("name", "Slapper");
     const talkedRecently = new Set();
 
 
     if (!modRole)
         return console.log(`The ${moderation} role does not exist`);
 
-    if (message.member.roles.has(Slapper.id))
-        return message.reply("This is not a command.");
+    if (msg.member.roles.has(Slapper.id))
+        return msg.reply("This is not a command.");
 
-    // if (message.member.role.name("Slapper"))
-    // return message.reply("");
+    // if (msg.member.role.name("Slapper"))
+    // return msg.reply("");
 
-    if (!message.guild.me.hasPermission("MANAGE_MESSAGES"))
-        return message.reply("");
+    if (!msg.guild.me.hasPermission("MANAGE_msgS"))
+        return msg.reply("");
 
-        let sender = message.author
-    let warnMember = message.mentions.members.first();
+        let sender = msg.author
+    let warnMember = msg.mentions.members.first();
     let reasonMsg = reason.join(" ");
 
-    let warner = message.author.tag;
-        message.channel.send("Sent!")
+    let warner = msg.author.tag;
+        msg.channel.send("Sent!")
         warnMember.send(`${reasonMsg}`) //1
         warnMember.send(`${reasonMsg}`) //2
         warnMember.send(`${reasonMsg}`) //3
@@ -129,13 +129,13 @@ const config = require("../config.json")
         warnMember.send(`${reasonMsg}`) //20
         warnMember.send(`${reasonMsg}`) //105
                     
-        if (talkedRecently.has(message.author.id))
+        if (talkedRecently.has(msg.author.id))
         return;
       ​
       // Adds the user to the set so that they can't talk for 2.5 seconds
-      talkedRecently.add(message.author.id);
+      talkedRecently.add(msg.author.id);
       setTimeout(() => {
         // Removes the user from the set after 2.5 seconds
-        talkedRecently.delete(message.author.id);
+        talkedRecently.delete(msg.author.id);
       }, 2500);
     

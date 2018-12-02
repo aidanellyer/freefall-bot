@@ -6,7 +6,7 @@ class Client extends Discord.Client {
         super(config.client)
         this.config = config
         this.connect()
-        this.on("message", message => this.handle(message))
+        this.on("message", msg => this.handle(msg))
         this.on("ready", () => this.status())
         this.antiRacism()
     }
@@ -15,18 +15,18 @@ class Client extends Discord.Client {
         this.login(this.config.token)
 
     }
-    handle(message) {
-        if (message.author.bot) return;
-        if (message.content.indexOf(this.config.prefix) !== 0) return;
+    handle(msg) {
+        if (msg.author.bot) return;
+        if (msg.content.indexOf(this.config.prefix) !== 0) return;
 
         // This is the best way to define args. Trust me.
-        const args = message.content.slice(this.config.prefix.length).trim().split(/ +/g);
+        const args = msg.content.slice(this.config.prefix.length).trim().split(/ +/g);
         const command = args.shift().toLowerCase();
 
         // The list of if/else is replaced with those simple 2 lines:
         try {
             const commandFile = require(`./commands/${command}.js`);
-            commandFile.run(this, message, args);
+            commandFile.run(this, msg, args);
         } catch (err) {
             console.error(err);
         }
@@ -49,11 +49,11 @@ class Client extends Discord.Client {
 
 
 antiRacism(){
-    this.on('message', message => {
+    this.on('msg', msg => {
         const swearWords = ['nigger', 'nigga', 'niggar', 'niggor', 'niggr'];
-        if (swearWords.some(word => message.cleanContent.toLowerCase().includes(word))) {
-            message.delete();
-            message.reply('You said a banned word! :punch: :punch: :punch: :cry: ').then(msg => msg.delete(3000)).catch(err => console.error(err));
+        if (swearWords.some(word => msg.cleanContent.toLowerCase().includes(word))) {
+            msg.delete();
+            msg.reply('You said a banned word! :punch: :punch: :punch: :cry: ').then(msg => msg.delete(3000)).catch(err => console.error(err));
         }
     });
 
