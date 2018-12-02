@@ -1,8 +1,8 @@
-exports.run = (client, message, args) => {
+exports.run = (client, msg, args) => {
     let poll = args;
-    let creator = message.author.tag;
+    let creator = msg.author.tag;
 
-    message.channel.send({
+    msg.channel.send({
         embed: {
             color: 3447003,
             author: {

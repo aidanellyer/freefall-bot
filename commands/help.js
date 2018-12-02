@@ -1,8 +1,8 @@
 const config = require("../config.json")
-exports.run = (client, message, args) => {
+exports.run = (client, msg, args) => {
     var prefix = config.prefix;
-    message.channel.send("A list of commands has been sent to you!")
-    message.author.send({
+    msg.channel.send("A list of commands has been sent to you!")
+    msg.author.send({
         embed: {
             color: 3447003,
             author: {
@@ -27,7 +27,7 @@ exports.run = (client, message, args) => {
                 value: `${prefix}poll - Creates a vote.
                 ${prefix}ban - This bans a member.
                 ${prefix}kick - This will remove a member, make sure and add a reason!
-                    ${prefix}warn - This will send a message to a user warning them!`
+                    ${prefix}warn - This will send a msg to a user warning them!`
 
             }]
         }

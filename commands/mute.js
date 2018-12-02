@@ -1,33 +1,35 @@
-exports.run = (client, message, [mention, ...reason]) => {
-    const config = require("../config.json")
-    let userToModify = message.mentions.members.first();
-    const role = message.guild.roles.find('name', 'muted');
-    const modRole = message.guild.roles.find("name", `${config.moderation}`);
-    const muteMember = message.mentions.members.first();
-    let reasonMsg = reason.join(" ");
-    let muter = message.author.tag;
+const config = require("../config.json")
+exports.run = (client, msg, [mention, ...reason]) => {
+    let userToModify = msg.mentions.members.first();
+    const role = msg.guild.roles.find('name', 'muted');
+    const modRole = msg.guild.roles.find("name", `${config.moderation}`);
+    let muter = msg.author.tag;
     let date = new Date();
     let channel = client.channels.get(config.logs);
 
     if (!modRole)
         return console.log(`The ${config.moderation} role does not exist`);
 
-    if (!message.member.roles.has(modRole.id))
-        return message.reply("You can't use this command.");
+    if (!msg.member.roles.has(modRole.id))
+        return msg.reply("You can't use this command.");
 
-    if (message.mentions.members.size === 0)
-        return message.reply("Please mention a user to mute");
+    if (msg.mentions.members.size === 0)
+        return msg.reply("Please mention a user to mute");
 
-        if (reasonMsg.length === 0)
-        return message.reply("Enter a reason");
+        if (reason.length === 0)
+        return msg.reply("Enter a reason");
 
-    if (!message.guild.me.hasPermission("MANAGE_ROLES"))
-        return message.reply("");
+    if (!msg.guild.me.hasPermission("MANAGE_ROLES"))
+        return msg.reply("");
 
 
 
 
     userToModify.addRole(role);
+
+    msg.reply("User has been muted!").then(msg => msg.delete(3000)).catch(err => console.error(err));
+
+    msg.member.send(`You were banned on ${date} by ${banner} for the reason: ${reason}**`)
 
     if (channel) {
         channel.send({
@@ -41,9 +43,9 @@ exports.run = (client, message, [mention, ...reason]) => {
                 title: "A user has been muted!",
                 description: `A user was muted recently! Here is all the information you need
               
-              **User muted:** ${muteMember}
+              **User muted:** ${userToModify}
               **Muted by:** ${muter}
-              **User was muted for:** ${reasonMsg}
+              **User was muted for:** ${reason}
               **User was muted on:** ${date}`
             }
         }
