@@ -1,4 +1,4 @@
-const Client = require('./Client.js');
+const Client = require('./client.js');
 const config = require('./config.json')
 
 new Client(config);
