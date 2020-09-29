@@ -1,4 +1,11 @@
-exports.run = (client, msg) => {
-            msg.reply("Pong! :ping_pong:").then(msg => msg.delete(3000));
-            msg.channel.send(new Date().getTime() - msg.createdTimestamp + " ms").then(msg => msg.delete(3000));        
-    }
+module.exports = {
+	name: 'ping',
+    description: 'Ping!',
+    cooldown: 5,
+	execute(message, args) {
+		message.channel.send('Pinging...').then(m =>{
+            let ping = m.createdTimestamp - message.createdTimestamp;
+            m.edit(`**:ping_pong: Pong! Your Ping Is:-**\n  ${ping}ms`);
+        })
+	},
+};

@@ -1,35 +1,46 @@
-const config = require("../config.json")
-exports.run = (client, msg, args) => {
-    var prefix = config.prefix;
-    msg.channel.send("A list of commands has been sent to you!")
-    msg.author.send({
-        embed: {
-            color: 3447003,
-            author: {
-                icon_url: client.user.avatarURL
+const { prefix } = require('../config.json');
 
-            },
-            title: "Commands List",
-            description: "All commands are listed here!",
-            fields: [{
-                name: "General Commands",
-                value: `${prefix}ip - This shows the IP to our server(s)
-                   ${prefix}management - This shows our team members and the definition of our management team
-                   ${prefix}suggest - This will allow a user to suggest a new feature.`,
-            },
-            {
-                name: "Fun Commands",
-                value: `${prefix}roll (number) - This will generate a random number between 1-your number i.e !roll 10 - will give you a number between 1 and 10
-                        ${prefix}joke - Grab a joke! Because we all know you're talentless!`
-            },
-            {
-                name: "Administrative Commands",
-                value: `${prefix}poll - Creates a vote.
-                ${prefix}ban - This bans a member.
-                ${prefix}kick - This will remove a member, make sure and add a reason!
-                    ${prefix}warn - This will send a msg to a user warning them!`
+module.exports = {
+	name: 'help',
+	description: 'List all of my commands or info about a specific command.',
+	aliases: ['commands'],
+	usage: '[command name]',
+	cooldown: 5,
+	execute(message, args) {
+		const data = [];
+		const { commands } = message.client;
 
-            }]
-        }
-    })
-}
+		if (!args.length) {
+			data.push('Here\'s a list of all my commands:');
+			data.push(commands.map(command => command.name).join(', '));
+			data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
+
+			return message.author.send(data, { split: true })
+				.then(() => {
+					if (message.channel.type === 'dm') return;
+					message.reply('I\'ve sent you a DM with all my commands!');
+				})
+				.catch(error => {
+					console.error(`Could not send help DM to ${message.author.tag}.\n`, error);
+					message.reply('it seems like I can\'t DM you!');
+				});
+		}
+
+		const name = args[0].toLowerCase();
+		const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
+
+		if (!command) {
+			return message.reply('that\'s not a valid command!');
+		}
+
+		data.push(`**Name:** ${command.name}`);
+
+		if (command.aliases) data.push(`**Aliases:** ${command.aliases.join(', ')}`);
+		if (command.description) data.push(`**Description:** ${command.description}`);
+		if (command.usage) data.push(`**Usage:** ${prefix}${command.name} ${command.usage}`);
+
+		data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
+
+		message.channel.send(data, { split: true });
+	},
+};
