@@ -1,3 +1,4 @@
+# No longer updated and massively out of date. Re-work in progress
 freefall-bot
 
 # Color Code:
